@@ -44,7 +44,8 @@ class_weight = ytrain.value_counts()[0] / ytrain.value_counts()[1]
 # Preprocessing pipeline
 preprocessor = make_column_transformer(
     (StandardScaler(), numeric_features),
-    (OneHotEncoder(handle_unknown='ignore'))
+    (OneHotEncoder(handle_unknown='ignore'), make_column_selector(dtype_include=['object', 'category'])),
+    remainder='drop'
 )
 
 # Define XGBoost model
